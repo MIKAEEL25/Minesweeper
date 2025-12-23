@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    background-color: #210024;
+  }
+}
+@theme {
+  --color-primary: var(--color-stone-400);
+}
