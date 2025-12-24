@@ -1,8 +1,12 @@
 import { type JSX, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { startActions } from '@/store/start';
+import Button from '../Button';
 
 const Timer = (): JSX.Element => {
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isRunning) return;
@@ -13,7 +17,7 @@ const Timer = (): JSX.Element => {
           setIsRunning(false);
           return prev;
         }
-        return prev + 3600;
+        return prev + 1;
       });
     }, 1000);
 
@@ -25,11 +29,13 @@ const Timer = (): JSX.Element => {
       return;
     }
     setIsRunning(true);
+    dispatch(startActions.startGame());
   };
 
   const resetHandler = () => {
     setIsRunning(false);
     setSeconds(0);
+    dispatch(startActions.finishGame());
   };
 
   const formatTime = (totalSeconds: number) => {
@@ -43,21 +49,21 @@ const Timer = (): JSX.Element => {
   };
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between mt-10">
       {seconds === 3600 && <p>Time Is Up!</p>}
       {seconds !== 3600 && (
-        <button
+        <Button
           className="hover:text-red-500"
           onClick={startHandler}
           disabled={isRunning}
         >
           Start
-        </button>
+        </Button>
       )}
-      <h2 className='text-white'>⏰{formatTime(seconds)}</h2>
-      <button className="hover:text-red-500" onClick={resetHandler}>
+      <h1 className="text-white">⏰{formatTime(seconds)}</h1>
+      <Button className="hover:text-red-500" onClick={resetHandler}>
         Reset
-      </button>
+      </Button>
     </div>
   );
 };
