@@ -1,14 +1,19 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Difficulties } from './Types';
 
-const initialdifficultyState: Difficulties = { level: 'easy' };
+import { difficultyConfig } from './difficulty.config';
+import type { Difficulties } from './difficulty.config';
+import type { DifficultyState } from './Types';
+
+const initialdifficultyState: DifficultyState = {
+  config: difficultyConfig.easy,
+};
 
 const difficultySlice = createSlice({
   name: 'difficulty',
   initialState: initialdifficultyState,
   reducers: {
-    setDifficulty(state, action: PayloadAction<Difficulties['level']>) {
-      state.level = action.payload;
+    setDifficulty(state, action: PayloadAction<Difficulties>) {
+      state.config = difficultyConfig[action.payload];
     },
   },
 });

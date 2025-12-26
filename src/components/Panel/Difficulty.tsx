@@ -3,15 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../Button';
 
-import type { Difficulties } from '@/store/Types';
+import type { Difficulties } from '@/store/difficulty.config';
 import type { RootState } from '@/store';
 import { difficultyActions } from '@/store/difficulty';
 
 const Difficulty = (): JSX.Element => {
-  const [acvtiveLevel, setActiveLevel] =
-    useState<Difficulties['level']>('easy');
+  const [acvtiveLevel, setActiveLevel] = useState<Difficulties[0]>('easy');
 
-  const difficulties: Difficulties['level'][] = ['easy', 'medium', 'hard'];
+  const difficulties: Difficulties[] = ['easy', 'medium', 'hard'];
 
   const isStart = useSelector(
     (state: RootState) => state.rootReducer.game.isStart
@@ -19,7 +18,7 @@ const Difficulty = (): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  function setDifficultyHandler(level: Difficulties['level']): void {
+  function setDifficultyHandler(level: Difficulties): void {
     dispatch(difficultyActions.setDifficulty(level));
     setActiveLevel(level);
   }
@@ -30,7 +29,7 @@ const Difficulty = (): JSX.Element => {
         <Button
           key={level}
           onClick={() => setDifficultyHandler(level)}
-          className={`text-green-400 ${
+          className={`text-fuchsia-500 ${
             acvtiveLevel === level ? 'border-b-2 border-blue-500' : ''
           }`}
           disabled={isStart}

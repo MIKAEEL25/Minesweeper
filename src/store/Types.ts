@@ -2,6 +2,10 @@ export interface GameStart {
   isStart: boolean;
 }
 
-export interface Difficulties {
-  level: 'easy' | 'medium' | 'hard';
+export type LevelConfig = {
+  time: number;
+  multiplier: number;
+};
+export type DifficultyState = {
+  config : LevelConfig;
 }
