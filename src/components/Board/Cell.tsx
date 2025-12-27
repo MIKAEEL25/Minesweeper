@@ -1,20 +1,15 @@
 import mineIcon from '@/assets/mine.svg';
 import falgIcon from '@/assets/red-flag.svg';
+import type { GameCell } from './Types';
 
-interface CellProps {
-  value: number | string;
-  isOpened?: boolean;
-  isFlagged?: boolean;
-}
-
-const Cell: React.FC<{ cell: CellProps }> = ({ cell }) => {
+const Cell: React.FC<{ cell: GameCell }> = ({ cell }) => {
   return (
     <span
       className={`cell text-${
         typeof cell.value === 'number' ? 'rose-500' : undefined
       }`}
     >
-      {typeof cell.value === 'number' ? cell.value : ''}
+      {typeof cell.value === 'number' ? cell.value || cell.value > 0 : ''}
       {cell.value === 'mine' && <img src={mineIcon} alt="mine" />}
       {!cell.isOpened && (
         <div className="overlay">

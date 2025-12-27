@@ -36,3 +36,8 @@ export type GameCell =
   | EmptyCell;
 
 export type MainBoard = GameCell[][];
+
+
+export type BoardProps = {
+  game: MainBoard;
+};

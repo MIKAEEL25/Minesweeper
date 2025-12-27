@@ -1,15 +1,13 @@
 import type { JSX } from 'react';
 import type { RootState } from '@/store';
 import { useSelector } from 'react-redux';
+
 import Cell from './Cell';
+import type { BoardProps } from './Types';
 
-const DUMMY_CELLS = [
-  [{ value: 1 }, { value: 2 }, { value: 3, isOpened: true, isFlagged: true }],
-  [{ value: 4 }, { value: 'mine' }, { value: 6 }],
-  [{ value: 7 }, { value: 'mine' }, { value: 'mine' }],
-];
 
-const Board = (): JSX.Element => {
+const Board = (props: BoardProps): JSX.Element => {
+  const { game } = props;
   const isStart = useSelector(
     (state: RootState) => state.rootReducer.game.isStart
   );
@@ -19,8 +17,8 @@ const Board = (): JSX.Element => {
       {/* {!isStart && 'Please Start The Game'} */}
       {!isStart && (
         <>
-          {DUMMY_CELLS.map((row) => (
-            <div className="flex bg-white w-fit">
+          {game.map((row) => (
+            <div className="flex bg-white w-fit m-auto">
               {row.map((cell) => (
                 <Cell cell={cell} />
               ))}
