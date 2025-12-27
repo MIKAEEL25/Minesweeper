@@ -1,17 +1,13 @@
 import { creatBoard, boardWithMines, boardWithNumbers } from './index';
 
-export const initialBoard = (
-  cols: number,
-  rows: number,
-  totalMines: number
-) => {
-  const emptyBoard = creatBoard(cols, rows);
+export function initialBoard(cols: number, rows: number, totalMines: number) {
+  const emptyBoard = creatBoard(rows, cols);
   const boardWithPlacedMines = boardWithMines(
     emptyBoard,
-    cols,
     rows,
+    cols,
     totalMines
   );
   const gameBoard = boardWithNumbers(boardWithPlacedMines);
   return gameBoard;
-};
+}

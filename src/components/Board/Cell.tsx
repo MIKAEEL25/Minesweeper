@@ -1,24 +1,35 @@
+import type { JSX } from 'react';
 import mineIcon from '@/assets/mine.svg';
 import falgIcon from '@/assets/red-flag.svg';
-import type { GameCell } from './Types';
+import type { CellProps } from './Types';
+import { textColor } from '@/utils/textColor';
 
-const Cell: React.FC<{ cell: GameCell }> = ({ cell }) => {
+const Cell = ({
+  cell,
+  leftClickHandler,
+  rowIndex,
+  cellIndex,
+}: CellProps): JSX.Element => {
+
   return (
-    <span
-      className={`cell text-${
-        typeof cell.value === 'number' ? 'rose-500' : undefined
-      }`}
+    <div
+      className={`
+        cell ${typeof cell.value === 'number' ? textColor(cell.value) : ''}
+      `}
+      onClick={() => leftClickHandler(rowIndex, cellIndex)}
     >
-      {typeof cell.value === 'number' ? cell.value || cell.value > 0 : ''}
       {cell.value === 'mine' && <img src={mineIcon} alt="mine" />}
+       {typeof cell.value === "number" && <>{cell.value || ""}</>}
       {!cell.isOpened && (
         <div className="overlay">
-          <div className={`${cell.isFlagged ? 'visible' : 'invisible'}`}>
-            <img src={falgIcon} alt="flag" />
-          </div>
+          <img
+            src={falgIcon}
+            alt="flag"
+            className={`${cell.isFlagged ? 'block' : 'hidden'}`}
+          />
         </div>
       )}
-    </span>
+    </div>
   );
 };
 

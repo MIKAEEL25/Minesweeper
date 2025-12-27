@@ -9,8 +9,8 @@ type ClosedCell = {
 };
 
 type MineCell = {
-  value: "mine";
-  highlight?: "red-500" | "green-500";
+  value: 'mine';
+  highlight?: 'bg-red-500' | 'bg-green-500';
 };
 
 type NumberCell = {
@@ -37,7 +37,13 @@ export type GameCell =
 
 export type MainBoard = GameCell[][];
 
-
 export type BoardProps = {
   game: MainBoard;
+  leftClickHandler: (col: number, row: number) => void;
 };
+export type CellProps = {
+  cell: GameCell;
+  rowIndex: number;
+  cellIndex: number;
+  leftClickHandler: (col: number, row: number) => void;
+}

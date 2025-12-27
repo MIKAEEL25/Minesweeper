@@ -4,10 +4,10 @@ import Panel from '../Panel/Panel';
 import { useGame } from '@/hooks/useGame';
 
 const Game = (): JSX.Element => {
-  const { game } = useGame();
+  const { game , leftClickHandler } = useGame();
   return (
     <div className="h-fit mt-20 p-10 flex justify-center gap-10">
-      <Board game={game} />
+      <Board game={game} leftClickHandler={leftClickHandler} />
       <Panel />
     </div>
   );

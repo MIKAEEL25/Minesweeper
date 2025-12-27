@@ -59,3 +59,51 @@ export function boardWithNumbers(board: MainBoard): MainBoard {
 
   return board;
 }
+
+export function initialBoard(cols: number, rows: number, totalMines: number) {
+  const emptyBoard = creatBoard(rows, cols);
+  const boardWithPlacedMines = boardWithMines(
+    emptyBoard,
+    rows,
+    cols,
+    totalMines
+  );
+  const gameBoard = boardWithNumbers(boardWithPlacedMines);
+  return gameBoard;
+}
+
+export function showEmptyCells(
+  board: MainBoard,
+  rows: number,
+  cols: number,
+  row: number,
+  col: number
+) {
+  const queue: [number, number][] = [[row, col]];
+
+  while (queue.length > 0) {
+    const [currentRow, currentCol] = queue.shift()!;
+
+    const cell = board[currentRow][currentCol];
+    cell.isOpened = true;
+
+    if (cell.value === 0) {
+      for (const [differentRow, differentCol] of DIRECTIONS) {
+        const newRow = currentRow + differentRow;
+        const newCol = currentCol + differentCol;
+
+        if (
+          newRow >= 0 &&
+          newRow < rows &&
+          newCol >= 0 &&
+          newCol < cols &&
+          !board[newRow][newCol].isOpened &&
+          !board[newRow][newCol].isFlagged
+        ) {
+          queue.push([newRow, newCol]);
+        }
+      }
+    }
+  }
+  return board;
+}
