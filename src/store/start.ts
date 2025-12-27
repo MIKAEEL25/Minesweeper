@@ -1,9 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { GameStart } from './Types';
 
-const initialgameState: GameStart = { isStart: false };
+const initialgameState: GameStart = {
+  isStart: false,
+  isOver: false,
+  win: false,
+  lose: false,
+};
 
-const startSlice = createSlice({
+const gameSlice = createSlice({
   name: 'gameState',
   initialState: initialgameState,
   reducers: {
@@ -11,11 +16,17 @@ const startSlice = createSlice({
       state.isStart = true;
     },
     finishGame(state) {
-      state.isStart = false;
+      state.isOver = true;
+    },
+    winGame(state) {
+      state.win = true;
+    },
+    looseGame(state) {
+      state.lose = true;
     },
   },
 });
 
-export const startActions = startSlice.actions;
+export const gameActions = gameSlice.actions;
 
-export default startSlice.reducer;
+export default gameSlice.reducer;

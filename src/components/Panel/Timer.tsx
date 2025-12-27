@@ -1,6 +1,6 @@
 import { type JSX, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { startActions } from '@/store/start';
+import { gameActions } from '@/store/start';
 import Button from '../Button';
 import type { RootState } from '@/store/index';
 
@@ -33,13 +33,13 @@ const Timer = (): JSX.Element => {
       return;
     }
     setIsRunning(true);
-    dispatch(startActions.startGame());
+    dispatch(gameActions.startGame());
   };
 
   const resetHandler = () => {
     setIsRunning(false);
     setSeconds(0);
-    dispatch(startActions.finishGame());
+    dispatch(gameActions.finishGame());
   };
 
   const formatTime = (totalSeconds: number) => {

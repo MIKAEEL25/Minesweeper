@@ -1,10 +1,17 @@
 import { useState } from 'react';
-import { initialBoard } from '@/utils/index';
+
+import { checkGameWin, initialBoard, showAllMines } from '@/utils/index';
 import type { MainBoard } from '@/components/Board/Types';
 import { showEmptyCells } from '@/utils';
+import { useDispatch } from 'react-redux';
+import { gameActions } from '@/store/start';
 
 export const useGame = () => {
   const [game, setGame] = useState(initialBoard(9, 9, 10));
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [gameWin, setGameWin] = useState<boolean>(false);
+  const gameEnded = gameOver || gameWin;
+  const dispatch = useDispatch();
 
   function cloneBoard(board: MainBoard) {
     return structuredClone(board);
@@ -18,7 +25,11 @@ export const useGame = () => {
     const emptyCell = typeof cell.value === 'number' && cell.value === 0;
 
     if (mineCell) {
-      console.log('mine');
+      dispatch(gameActions.finishGame());
+      dispatch(gameActions.looseGame());
+      setGameOver(true);
+      cell.highlight = 'bg-red-500';
+      showAllMines(newGameBoard);
     }
     if (!mineCell) {
       cell.isOpened = true;
@@ -29,11 +40,24 @@ export const useGame = () => {
         showEmptyCells(newGameBoard, 9, 9, row, col);
         console.log('empty');
       }
+      if (checkGameWin(newGameBoard, 10)) {
+        dispatch(gameActions.finishGame());
+        dispatch(gameActions.winGame());
+        setGameWin(true);
+        showAllMines(newGameBoard, true);
+      }
     }
     return newGameBoard;
   }
 
   function leftClickHandler(row: number, col: number) {
+    if (
+      gameEnded || 
+      game[row][col].isOpened ||
+      game[row][col].isFlagged
+    ) {
+      return null
+    }
     const newGameBoard = cloneBoard(game);
     const openingCell = openedCell(newGameBoard, row, col);
     if (openingCell) {

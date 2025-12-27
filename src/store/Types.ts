@@ -1,5 +1,8 @@
 export interface GameStart {
   isStart: boolean;
+  isOver: boolean;
+  win: boolean;
+  lose: boolean;
 }
 
 export type LevelConfig = {
@@ -7,5 +10,5 @@ export type LevelConfig = {
   multiplier: number;
 };
 export type DifficultyState = {
-  config : LevelConfig;
-}
+  config: LevelConfig;
+};

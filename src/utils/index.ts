@@ -107,3 +107,35 @@ export function showEmptyCells(
   }
   return board;
 }
+
+export const showAllMines = (board: MainBoard, highlightWin?: boolean) => {
+  board.forEach((row) => {
+    row.forEach((cell) => {
+      if (cell.value === 'mine') {
+        cell.isOpened = true;
+        if (highlightWin) {
+          cell.highlight = 'bg-green-500';
+        }
+      }
+    });
+  });
+};
+
+export const checkGameWin = (board: MainBoard, totalMines: number) => {
+  let unopenedCells = 0;
+  let correctlyFlaggedMines = 0;
+
+  board.forEach((row) => {
+    row.forEach((cell) => {
+      if (!cell.isOpened) {
+        unopenedCells++;
+      }
+
+      if (cell.isFlagged && cell.value === 'mine') {
+        correctlyFlaggedMines++;
+      }
+    });
+  });
+
+  return unopenedCells === totalMines || correctlyFlaggedMines === totalMines;
+};

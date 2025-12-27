@@ -10,16 +10,16 @@ const Cell = ({
   rowIndex,
   cellIndex,
 }: CellProps): JSX.Element => {
-
   return (
     <div
       className={`
         cell ${typeof cell.value === 'number' ? textColor(cell.value) : ''}
+        ${cell.value === 'mine' && cell.highlight}
       `}
       onClick={() => leftClickHandler(rowIndex, cellIndex)}
     >
       {cell.value === 'mine' && <img src={mineIcon} alt="mine" />}
-       {typeof cell.value === "number" && <>{cell.value || ""}</>}
+      {typeof cell.value === 'number' && <>{cell.value || ''}</>}
       {!cell.isOpened && (
         <div className="overlay">
           <img

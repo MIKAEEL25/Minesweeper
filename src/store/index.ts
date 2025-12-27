@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import startReducer from './start';
+import gameReducer from './start';
 import gameDifficulty from './difficulty';
 
 const rootReducer = combineReducers({
-  game: startReducer,
+  game: gameReducer,
   difficulty : gameDifficulty,
 });
 
