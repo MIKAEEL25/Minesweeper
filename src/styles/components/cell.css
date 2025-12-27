@@ -3,6 +3,6 @@
 }
 
 .overlay {
-  @apply absolute bg-gray-700 opacity-5 flex justify-center items-center box-border top-0 h-full w-full;
+  @apply absolute bg-gray-700 opacity-60 flex justify-center items-center box-border top-0 h-full w-full;
 
 }

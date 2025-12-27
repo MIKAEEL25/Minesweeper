@@ -8,7 +8,9 @@ const Timer = (): JSX.Element => {
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
-  const level = useSelector((state: RootState) => state.rootReducer.difficulty.config);
+  const level = useSelector(
+    (state: RootState) => state.rootReducer.difficulty.config
+  );
 
   const dispatch = useDispatch();
 
@@ -26,7 +28,7 @@ const Timer = (): JSX.Element => {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isRunning , level.time]);
+  }, [isRunning, level.time]);
 
   const startHandler = () => {
     if (seconds >= level.time) {
@@ -40,6 +42,7 @@ const Timer = (): JSX.Element => {
     setIsRunning(false);
     setSeconds(0);
     dispatch(gameActions.finishGame());
+    window.location.reload();
   };
 
   const formatTime = (totalSeconds: number) => {
@@ -57,7 +60,7 @@ const Timer = (): JSX.Element => {
       {seconds === level.time && <p>Time Is Up!</p>}
       {seconds !== level.time && (
         <Button
-          className="hover:text-red-500 text-yellow-500"
+          className="hover:text-red-500 text-yellow-500 text-2xl"
           onClick={startHandler}
           disabled={isRunning}
         >
@@ -65,7 +68,11 @@ const Timer = (): JSX.Element => {
         </Button>
       )}
       <h1 className="text-white">⏰{formatTime(seconds)}</h1>
-      <Button className="hover:text-red-500 text-yellow-500" onClick={resetHandler}>
+      <Button
+        className="hover:text-red-500 text-yellow-500 text-2xl "
+        onClick={resetHandler}
+        disabled={!isRunning}
+      >
         Reset
       </Button>
     </div>

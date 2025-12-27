@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { checkGameWin, initialBoard, showAllMines } from '@/utils/index';
 import type { MainBoard } from '@/components/Board/Types';
 import { showEmptyCells } from '@/utils';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gameActions } from '@/store/start';
+import type { RootState } from '@/store';
 
 export const useGame = () => {
-  const [game, setGame] = useState(initialBoard(9, 9, 10));
+  const level = useSelector(
+    (state: RootState) => state.rootReducer.difficulty.config
+  );
+  const [game, setGame] = useState(
+    initialBoard(level.row, level.col, level.mines)
+  );
+  useEffect(() => {
+    setGame(initialBoard(level.row, level.col, level.mines));
+  } , [level]);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [gameWin, setGameWin] = useState<boolean>(false);
   const gameEnded = gameOver || gameWin;
@@ -37,10 +46,10 @@ export const useGame = () => {
         console.log('number');
       }
       if (emptyCell) {
-        showEmptyCells(newGameBoard, 9, 9, row, col);
+        showEmptyCells(newGameBoard, level.row, level.col, row, col);
         console.log('empty');
       }
-      if (checkGameWin(newGameBoard, 10)) {
+      if (checkGameWin(newGameBoard, level.mines)) {
         dispatch(gameActions.finishGame());
         dispatch(gameActions.winGame());
         setGameWin(true);
@@ -51,12 +60,8 @@ export const useGame = () => {
   }
 
   function leftClickHandler(row: number, col: number) {
-    if (
-      gameEnded || 
-      game[row][col].isOpened ||
-      game[row][col].isFlagged
-    ) {
-      return null
+    if (gameEnded || game[row][col].isOpened || game[row][col].isFlagged) {
+      return null;
     }
     const newGameBoard = cloneBoard(game);
     const openingCell = openedCell(newGameBoard, row, col);
@@ -65,5 +70,5 @@ export const useGame = () => {
     }
   }
 
-  return { game, leftClickHandler };
+  return { game, leftClickHandler , level };
 };

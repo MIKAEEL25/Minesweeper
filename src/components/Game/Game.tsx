@@ -6,7 +6,7 @@ import { useGame } from '@/hooks/useGame';
 const Game = (): JSX.Element => {
   const { game , leftClickHandler } = useGame();
   return (
-    <div className="h-fit mt-20 p-10 flex justify-center gap-10">
+    <div className="h-fit mt-12 p-5 flex justify-center gap-5">
       <Board game={game} leftClickHandler={leftClickHandler} />
       <Panel />
     </div>

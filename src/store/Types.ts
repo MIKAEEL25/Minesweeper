@@ -7,7 +7,9 @@ export interface GameStart {
 
 export type LevelConfig = {
   time: number;
-  multiplier: number;
+  row: number;
+  col: number;
+  mines: number;
 };
 export type DifficultyState = {
   config: LevelConfig;

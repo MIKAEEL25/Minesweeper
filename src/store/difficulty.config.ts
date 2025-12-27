@@ -1,15 +1,21 @@
 export const difficultyConfig = {
   easy: {
     time: 1800,
-    multiplier: 1,
+    row: 9,
+    col: 9,
+    mines: 20,
   },
   medium: {
     time: 1200,
-    multiplier: 2,
+    row: 16,
+    col: 16,
+    mines: 60,
   },
   hard: {
     time: 600,
-    multiplier: 3,
+    row: 16,
+    col: 30,
+    mines: 150,
   },
 } as const;
 

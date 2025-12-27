@@ -24,7 +24,7 @@ const Difficulty = (): JSX.Element => {
   }
 
   return (
-    <div className="flex justify-evenly">
+    <div className="flex flex-col gap-5">
       {difficulties.map((level) => (
         <Button
           key={level}
