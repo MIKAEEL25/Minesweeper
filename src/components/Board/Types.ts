@@ -1,3 +1,5 @@
+import type { MouseEvent } from 'react';
+
 type OpenedCell = {
   isOpened: true;
   isFlagged: false;
@@ -40,10 +42,20 @@ export type MainBoard = GameCell[][];
 export type BoardProps = {
   game: MainBoard;
   leftClickHandler: (col: number, row: number) => void;
+  rightClickHandler: (
+    e: MouseEvent<HTMLDivElement>,
+    col: number,
+    row: number
+  ) => void;
 };
 export type CellProps = {
   cell: GameCell;
   rowIndex: number;
   cellIndex: number;
   leftClickHandler: (col: number, row: number) => void;
-}
+  rightClickHandler: (
+    e: MouseEvent<HTMLDivElement>,
+    col: number,
+    row: number
+  ) => void;
+};

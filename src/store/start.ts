@@ -1,29 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { GameStart } from './Types';
 
 const initialgameState: GameStart = {
-  isStart: false,
+  play: false,
   isOver: false,
-  win: false,
-  lose: false,
 };
 
 const gameSlice = createSlice({
   name: 'gameState',
   initialState: initialgameState,
   reducers: {
-    startGame(state) {
-      state.isStart = true;
+    startGame(state, actions: PayloadAction<boolean>) {
+      state.play = actions.payload;
     },
-    finishGame(state) {
-      state.isOver = true;
-    },
-    winGame(state) {
-      state.win = true;
-    },
-    looseGame(state) {
-      state.lose = true;
-    },
+    finishGame(state, actions: PayloadAction<boolean>) {
+      state.isOver = actions.payload;
+    }
   },
 });
 

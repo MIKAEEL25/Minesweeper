@@ -13,7 +13,7 @@ const Difficulty = (): JSX.Element => {
   const difficulties: Difficulties[] = ['easy', 'medium', 'hard'];
 
   const isStart = useSelector(
-    (state: RootState) => state.rootReducer.game.isStart
+    (state: RootState) => state.rootReducer.game.play
   );
 
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Difficulty = (): JSX.Element => {
           key={level}
           onClick={() => setDifficultyHandler(level)}
           className={`text-fuchsia-500 ${
-            acvtiveLevel === level ? 'border-b-2 border-blue-500' : ''
+            acvtiveLevel === level ? 'border-b-2 border-lime-500' : ''
           }`}
           disabled={isStart}
         >

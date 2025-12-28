@@ -1,8 +1,6 @@
 export interface GameStart {
-  isStart: boolean;
+  play: boolean;
   isOver: boolean;
-  win: boolean;
-  lose: boolean;
 }
 
 export type LevelConfig = {
