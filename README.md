@@ -48,12 +48,16 @@ This project is built using modern frontend tools:
 
 ## 📦 Installation & Setup
 
-Follow these steps to run the project locally:
+1.You can visit the github page with this **url**: <https://mikaeel25.github.io/Minesweeper/>
+
+#### OR
+
+2.Follow these steps to run the project locally:
 
 ### 1️⃣ Clone the repository (or download ZIP)
 
 ```bash
-git clone <https://github.com/MIKAEEL25/Minesweeper.git>
+git clone https://github.com/MIKAEEL25/Minesweeper.git
 cd minesweeper
 ```
 
